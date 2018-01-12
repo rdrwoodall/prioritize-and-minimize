@@ -1,6 +1,14 @@
 const AppComponent = {
   template: `
-    <h4>Welcome to P.A.M.</h4>
+    <header>
+      Welcome to P.A.M.
+    </header>
+    <main>
+      <div ui-view></div>
+    </main>
+    <footer>
+      No copyright :-)
+    </footer>
   `,
 };
 
