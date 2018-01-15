@@ -11,6 +11,9 @@ const AppModule = angular.module('pam', [
   CommonModule,
 ])
   .component('app', AppComponent)
+  .config(($urlRouterProvider) => {
+    $urlRouterProvider.otherwise('/entry');
+  })
   .name;
 
 export default AppModule;
