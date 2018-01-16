@@ -1,3 +1,6 @@
+import angular from 'angular';
+import uniqid from 'uniqid';
+
 const TaskFormComponent = {
   bindings: {
     onTaskAdd: '&',
@@ -18,12 +21,20 @@ const TaskFormComponent = {
     }
     $onInit() {
       this.task = {
+        id: null,
         name: null,
         duration: null,
       };
     }
     addTask() {
+      this.task.id = uniqid();
       this.onTaskAdd({ task: angular.copy(this.task) });
+
+      this.task = {
+        id: null,
+        name: null,
+        duration: null,
+      };
     }
   },
 };
