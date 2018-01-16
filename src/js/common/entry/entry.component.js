@@ -1,6 +1,8 @@
 const EntryComponent = {
   template: `
-    <div>task-form-component</div>
+    <task-form
+      on-task-add="$ctrl.processTaskAdd(task)">
+    </task-form>
     <div>task-list-component</div>
     <button ui-sref="run">Run</button>
     <button>Clear Tasks</button>
@@ -8,11 +10,12 @@ const EntryComponent = {
   controller: class {
     constructor() {
       'ngInject';
-
-      this.taskList = [];
     }
     $onInit() {
-      console.log('EntryComponent initialized!', this.taskList);
+      this.taskList = [];
+    }
+    processTaskAdd(task) {
+      this.taskList = [...this.taskList, task];
     }
   },
 };
