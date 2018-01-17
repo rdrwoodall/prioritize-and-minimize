@@ -11,20 +11,22 @@ const EntryComponent = {
     <button ng-click="$ctrl.clearTasks()">Clear Tasks</button>
   `,
   controller: class {
-    constructor() {
+    constructor(EntryService) {
       'ngInject';
+
+      this.EntryService = EntryService;
     }
     $onInit() {
-      this.taskList = [];
+      this.taskList = this.EntryService.getTasks();
     }
     processTaskAdd(task) {
-      this.taskList = [...this.taskList, task];
+      this.taskList = this.EntryService.addTask(task);
     }
     processTaskDelete(taskId) {
-      this.taskList = this.taskList.filter(task => task.id !== taskId);
+      this.taskList = this.EntryService.deleteTask(taskId);
     }
     clearTasks() {
-      this.taskList = [];
+      this.taskList = this.EntryService.clearTasks();
     }
   },
 };

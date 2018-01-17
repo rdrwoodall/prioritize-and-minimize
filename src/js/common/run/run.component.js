@@ -1,5 +1,8 @@
+import angular from 'angular';
+
 const RunComponent = {
   template: `
+    // TODO: start here by displaying current running task
     <div>task name and description</div>
     <div>task-timer</div>
     <button>Pause</button>
@@ -7,13 +10,15 @@ const RunComponent = {
     <button ui-sref="entry">Home</button>
     `,
   controller: class {
-    constructor() {
+    constructor(EntryService) {
       'ngInject';
 
-      this.task = {};
+      this.EntryService = EntryService;
     }
     $onInit() {
-      console.log('RunComponent is initialized!', this.task);
+      this.taskList = this.EntryService.getTasks();
+      
+      // run taskList somehow
     }
   },
 };
