@@ -30,11 +30,11 @@ export default class EntryService {
     this.taskList = [...this.taskList, task];
     return this.taskList;
   }
-  removeTask(taskId) {
+  deleteTaskById(taskId) {
     this.taskList = this.taskList.filter(task => task.id !== taskId);
     return this.taskList;
   }
-  clearTasks() {
+  deleteTasks() {
     this.taskList = [];
     return this.taskList;
   }

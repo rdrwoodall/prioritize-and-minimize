@@ -23,10 +23,10 @@ const EntryComponent = {
       this.taskList = this.EntryService.addTask(task);
     }
     processTaskDelete(taskId) {
-      this.taskList = this.EntryService.deleteTask(taskId);
+      this.taskList = this.EntryService.deleteTaskById(taskId);
     }
     clearTasks() {
-      this.taskList = this.EntryService.clearTasks();
+      this.taskList = this.EntryService.deleteTasks();
     }
   },
 };
