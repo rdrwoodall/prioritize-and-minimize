@@ -2,9 +2,10 @@ import angular from 'angular';
 
 const RunComponent = {
   template: `
-    // TODO: start here by displaying current running task
-    <div>task name and description</div>
+    <h3>{{$ctrl.task.name}}</h3>
     <div>task-timer</div>
+    <button ng-click="$ctrl.pause()">Pause</button>
+    <button ng-click="$ctrl.skip()">Skip</button>
     <button ng-click="$ctrl.goHome()">Home</button>
     `,
   controller: class {
@@ -16,6 +17,12 @@ const RunComponent = {
     }
     $onInit() {
       this.task = this.EntryService.getNextTask();
+    }
+    pause() {
+      console.log('pausing', this);
+    }
+    skip() {
+      console.log('skipping', this);
     }
     goHome() {
       this.$state.go('entry');
