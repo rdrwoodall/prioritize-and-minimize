@@ -5,18 +5,20 @@ const RunComponent = {
     // TODO: start here by displaying current running task
     <div>task name and description</div>
     <div>task-timer</div>
-    <button>Pause</button>
-    <button>Skip</button>
-    <button ui-sref="entry">Home</button>
+    <button ng-click="$ctrl.goHome()">Home</button>
     `,
   controller: class {
-    constructor(EntryService) {
+    constructor($state, EntryService) {
       'ngInject';
 
+      this.$state = $state;
       this.EntryService = EntryService;
     }
     $onInit() {
       this.task = this.EntryService.getNextTask();
+    }
+    goHome() {
+      this.$state.go('entry');
     }
   },
 };

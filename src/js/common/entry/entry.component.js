@@ -7,13 +7,14 @@ const EntryComponent = {
       task-list="$ctrl.taskList"
       on-task-delete="$ctrl.processTaskDelete(taskId)">
     </task-list>
-    <button ui-sref="run">Run</button>
+    <button ng-click="$ctrl.goToRun()">Run</button>
     <button ng-click="$ctrl.clearTasks()">Clear Tasks</button>
   `,
   controller: class {
-    constructor(EntryService) {
+    constructor($state, EntryService) {
       'ngInject';
 
+      this.$state = $state;
       this.EntryService = EntryService;
     }
     $onInit() {
@@ -24,6 +25,9 @@ const EntryComponent = {
     }
     processTaskDelete(taskId) {
       this.taskList = this.EntryService.deleteTaskById(taskId);
+    }
+    goToRun() {
+      this.$state.go('run');
     }
     clearTasks() {
       this.taskList = this.EntryService.deleteTasks();
