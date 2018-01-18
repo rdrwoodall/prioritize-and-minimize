@@ -38,4 +38,7 @@ export default class EntryService {
     this.taskList = [];
     return this.taskList;
   }
+  getNextTask() {
+    return this.taskList.shift();
+  }
 }

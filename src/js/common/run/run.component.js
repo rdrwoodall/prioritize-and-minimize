@@ -16,9 +16,7 @@ const RunComponent = {
       this.EntryService = EntryService;
     }
     $onInit() {
-      this.taskList = this.EntryService.getTasks();
-      
-      // run taskList somehow
+      this.task = this.EntryService.getNextTask();
     }
   },
 };
