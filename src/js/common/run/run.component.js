@@ -16,13 +16,20 @@ const RunComponent = {
       this.EntryService = EntryService;
     }
     $onInit() {
-      this.task = this.EntryService.getNextTask();
+      const task = this.EntryService.getNextTask();
+
+      if (angular.isUndefined(task)) {
+        this.$state.go('complete');
+      }
+
+      this.task = task;
+      // TODO: start timer
     }
     pause() {
       console.log('pausing', this);
     }
     skip() {
-      console.log('skipping', this);
+      this.$state.go(this.$state.current, {}, { reload: true });
     }
     goHome() {
       this.$state.go('entry');

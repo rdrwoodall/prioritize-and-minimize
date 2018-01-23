@@ -1,17 +1,16 @@
 const CompleteComponent = {
   template: `
     <div>Completed Task List!</div>
-    <div>task name and description</div>
-    <button ui-sref="entry">Home</button>
+    <button ng-click="$ctrl.goHome()">Home</button>
     `,
   controller: class {
-    constructor() {
+    constructor($state) {
       'ngInject';
 
-      this.task = {};
+      this.$state = $state;
     }
-    $onInit() {
-      console.log('CompleteComponent is initialized!', this.task);
+    goHome() {
+      this.$state.go('entry');
     }
   },
 };
