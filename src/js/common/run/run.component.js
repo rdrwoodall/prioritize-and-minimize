@@ -3,9 +3,13 @@ import angular from 'angular';
 const RunComponent = {
   template: `
     <h3>{{$ctrl.task.name}}</h3>
-    <div>task-timer</div>
+    <timer 
+      duration="$ctrl.task.duration" 
+      on-complete="$ctrl.onTimerComplete()"
+      pause-registration="$ctrl.registerPause(handler)">
+    </timer>
     <button ng-click="$ctrl.pause()">Pause</button>
-    <button ng-click="$ctrl.skip()">Skip</button>
+    <button ng-click="$ctrl.goToNext()">Skip</button>
     <button ng-click="$ctrl.goHome()">Home</button>
     `,
   controller: class {
@@ -23,16 +27,24 @@ const RunComponent = {
       }
 
       this.task = task;
-      // TODO: start timer
+      this.pauseHandler = null;
     }
     pause() {
-      console.log('pausing', this);
+      if (this.pauseHandler) {
+        this.pauseHandler();
+      }
     }
-    skip() {
+    goToNext() {
       this.$state.go(this.$state.current, {}, { reload: true });
     }
     goHome() {
       this.$state.go('entry');
+    }
+    onTimerComplete() {
+      this.goToNext();
+    }
+    registerPause(handler) {
+      this.pauseHandler = handler;
     }
   },
 };
