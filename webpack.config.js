@@ -28,4 +28,5 @@ module.exports = {
       template: path.join(paths.src, 'index.html'),
     }),
   ],
+  devtool: 'source-map',
 };
