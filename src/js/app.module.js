@@ -11,8 +11,11 @@ const AppModule = angular.module('pam', [
   CommonModule,
 ])
   .component('app', AppComponent)
-  .config(($urlRouterProvider) => {
+  .config(($urlRouterProvider, $locationProvider) => {
+    'ngInject';
+
     $urlRouterProvider.otherwise('/entry');
+    $locationProvider.html5Mode(true);
   })
   .name;
 
