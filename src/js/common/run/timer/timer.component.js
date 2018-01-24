@@ -23,12 +23,12 @@ const TimerComponent = {
       this.timer = this.$interval(() => {
         if (this.minutes === 0 && this.seconds === 0) {
           this.$interval.cancel(this.timer);
-          
+
           if (this.onComplete) {
             this.onComplete();
           }
         }
-        
+
         this.minutes = (this.seconds === 0) ? (this.minutes - 1) : this.minutes;
         this.seconds = (this.seconds - 1) < 0 ? 59 : (this.seconds - 1);
       }, 1000);
