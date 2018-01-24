@@ -27,6 +27,11 @@ const EntryComponent = {
       this.taskList = this.EntryService.deleteTaskById(taskId);
     }
     goToRun() {
+      if (this.taskList.length === 0) {
+        // TODO: flash warningss
+        return;
+      }
+
       this.$state.go('run');
     }
     clearTasks() {
