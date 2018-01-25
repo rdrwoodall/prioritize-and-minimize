@@ -36,6 +36,7 @@ const TimerComponent = {
       this.timer = null;
     }
     runTimer() {
+      // timer complete
       if (this.minutes === 0 && this.seconds === 0) {
         this.cancelTimer();
 
@@ -44,6 +45,7 @@ const TimerComponent = {
         }
       }
 
+      // update timer
       this.minutes = (this.seconds === 0) ? (this.minutes - 1) : this.minutes;
       this.seconds = (this.seconds - 1) < 0 ? 59 : (this.seconds - 1);
     }
