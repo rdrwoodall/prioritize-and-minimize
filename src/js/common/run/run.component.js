@@ -6,9 +6,9 @@ const RunComponent = {
     <timer 
       duration="$ctrl.task.duration" 
       on-complete="$ctrl.onTimerComplete()"
-      pause-registration="$ctrl.registerPause(handler)">
+      register="$ctrl.eventRegistration(handler)">
     </timer>
-    <button ng-click="$ctrl.pause()">Pause</button>
+    <button ng-click="$ctrl.toggle()">{{ $ctrl.action }}</button>
     <button ng-click="$ctrl.goToNext()">Skip</button>
     <button ng-click="$ctrl.goHome()">Home</button>
     `,
@@ -27,11 +27,14 @@ const RunComponent = {
       }
 
       this.task = task;
-      this.pauseHandler = null;
+      this.action = 'Stop';
+      this.toggleHandler = null;
     }
-    pause() {
-      if (this.pauseHandler) {
-        this.pauseHandler();
+    toggle() {
+      this.action = (this.action === 'Stop') ? 'Start' : 'Stop';
+
+      if (this.toggleHandler) {
+        this.toggleHandler();
       }
     }
     goToNext() {
@@ -43,8 +46,8 @@ const RunComponent = {
     onTimerComplete() {
       this.goToNext();
     }
-    registerPause(handler) {
-      this.pauseHandler = handler;
+    eventRegistration(handler) {
+      this.toggleHandler = handler;
     }
   },
 };

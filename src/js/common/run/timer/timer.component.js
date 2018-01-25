@@ -1,9 +1,11 @@
+import angular from 'angular';
+
 const TimerComponent = {
   bindings: {
     duration: '<',
     onComplete: '&',
-    // registers a handler to pause internal timer from parent
-    pauseRegistration: '&',
+    // registers a handler to stop/start internal timer from parent
+    register: '&',
   },
   template: `
     <div>{{ $ctrl.minutes }} : {{ $ctrl.seconds }}</div>
@@ -15,27 +17,39 @@ const TimerComponent = {
       this.$interval = $interval;
     }
     $onInit() {
-      // register pause handler with parent
-      this.pauseRegistration({ handler: this.onPause });
+      // register toggle handler with parent
+      this.register({ handler: angular.bind(this, this.onToggle) });
 
       this.minutes = this.duration;
       this.seconds = 0;
-      this.timer = this.$interval(() => {
-        if (this.minutes === 0 && this.seconds === 0) {
-          this.$interval.cancel(this.timer);
-
-          if (this.onComplete) {
-            this.onComplete();
-          }
-        }
-
-        this.minutes = (this.seconds === 0) ? (this.minutes - 1) : this.minutes;
-        this.seconds = (this.seconds - 1) < 0 ? 59 : (this.seconds - 1);
-      }, 1000);
+      this.timer = this.$interval(angular.bind(this, this.runTimer), 1000);
     }
-    onPause() {
-      // TODO: pause timer somehow
-      console.log('Timer pause invoked');
+    onToggle() {
+      // timer is currently stopped, run timer
+      if (this.timer === null) {
+        this.timer = this.$interval(angular.bind(this, this.runTimer), 1000);
+        return;
+      }
+
+      // timer is currently running, stop timer
+      this.$interval.cancel(this.timer);
+      this.timer = null;
+    }
+    runTimer() {
+      if (this.minutes === 0 && this.seconds === 0) {
+        this.cancelTimer();
+
+        if (this.onComplete) {
+          this.onComplete();
+        }
+      }
+
+      this.minutes = (this.seconds === 0) ? (this.minutes - 1) : this.minutes;
+      this.seconds = (this.seconds - 1) < 0 ? 59 : (this.seconds - 1);
+    }
+    cancelTimer() {
+      this.$interval.cancel(this.timer);
+      this.timer = null;
     }
   },
 };
