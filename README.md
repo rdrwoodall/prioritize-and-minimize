@@ -1,6 +1,6 @@
 # Prioritize & Minimize (P.A.M)
 
-### A small AngularJS project to put some learnings into practice.
+### A small AngularJS project to put some learnings into practice before jumping into the React space.
 
 #### Learnings:
 * ES6 with AngularJS
@@ -8,10 +8,10 @@
 
 #### Ongoing Practice:
 * Component based architecture 
-* CSS
 
 #### What's next:
 * Redux for better state mgmt
+* Add some CSS
 * Try my hand at some SASS
 * JSON Server
 
