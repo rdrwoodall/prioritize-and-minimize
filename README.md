@@ -10,7 +10,6 @@
 * Component based architecture 
 
 #### What's next:
-* Try out Redux for better intercomponent communication
 * Remove bootstrap, CSS practice is necessary
 
 #### To run:
