@@ -8,12 +8,10 @@
 
 #### Ongoing Practice:
 * Component based architecture 
-* CSS
 
 #### What's next:
-* Redux for better state mgmt
-* Try my hand at some SASS
-* JSON Server
+* Try out Redux for better intercomponent communication
+* Remove bootstrap, CSS practice is necessary
 
 #### To run:
 
