@@ -4,21 +4,19 @@ const TimerComponent = {
   bindings: {
     duration: '<',
     onComplete: '&',
-    // registers a handler to stop/start internal timer from parent
-    register: '&',
   },
   template: `
     <div>{{ $ctrl.minutes }} : {{ $ctrl.seconds }}</div>
   `,
   controller: class {
-    constructor($interval) {
+    constructor($scope, $interval) {
       'ngInject';
 
+      this.$scope = $scope;
       this.$interval = $interval;
     }
     $onInit() {
-      // register toggle handler with parent
-      this.register({ handler: angular.bind(this, this.onToggle) });
+      this.$scope.$on('toggle', angular.bind(this, this.onToggle));
 
       this.minutes = this.duration;
       this.seconds = 0;

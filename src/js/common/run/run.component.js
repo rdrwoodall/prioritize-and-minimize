@@ -5,17 +5,17 @@ const RunComponent = {
     <h3>{{$ctrl.task.name}}</h3>
     <timer 
       duration="$ctrl.task.duration" 
-      on-complete="$ctrl.onTimerComplete()"
-      register="$ctrl.eventRegistration(handler)">
+      on-complete="$ctrl.onTimerComplete()">
     </timer>
     <button ng-click="$ctrl.toggle()">{{ $ctrl.action }}</button>
     <button ng-click="$ctrl.goToNext()">Skip</button>
     <button ng-click="$ctrl.goHome()">Home</button>
     `,
   controller: class {
-    constructor($state, EntryService) {
+    constructor($scope, $state, EntryService) {
       'ngInject';
 
+      this.$scope = $scope;
       this.$state = $state;
       this.EntryService = EntryService;
     }
@@ -28,14 +28,10 @@ const RunComponent = {
 
       this.task = task;
       this.action = 'Stop';
-      this.toggleHandler = null;
     }
     toggle() {
       this.action = (this.action === 'Stop') ? 'Start' : 'Stop';
-
-      if (this.toggleHandler) {
-        this.toggleHandler();
-      }
+      this.$scope.$broadcast('toggle');
     }
     goToNext() {
       this.$state.go(this.$state.current, {}, { reload: true });
@@ -45,9 +41,6 @@ const RunComponent = {
     }
     onTimerComplete() {
       this.goToNext();
-    }
-    eventRegistration(handler) {
-      this.toggleHandler = handler;
     }
   },
 };
