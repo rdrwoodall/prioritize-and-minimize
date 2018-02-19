@@ -10,7 +10,7 @@
 * Component based architecture 
 
 #### What's next:
-* Remove bootstrap, CSS practice is necessary
+* Remove bootstrap, try hand with flexbox/css grid
 
 #### To run:
 
