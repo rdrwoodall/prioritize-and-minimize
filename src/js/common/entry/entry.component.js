@@ -28,7 +28,7 @@ const EntryComponent = {
     }
     goToRun() {
       if (this.taskList.length === 0) {
-        // TODO: flash warningss
+        // TODO: flash warnings
         return;
       }
 
