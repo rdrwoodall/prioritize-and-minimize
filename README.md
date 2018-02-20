@@ -10,6 +10,7 @@
 * Component based architecture 
 
 #### What's next:
+* Try integrating ng-redux
 * Remove bootstrap, try hand with flexbox/css grid
 
 #### To run:
