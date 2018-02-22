@@ -5,12 +5,12 @@
 #### Learnings:
 * ES6 with AngularJS
 * Webpack
+* Integrating ng-redux for inter-component communication
 
 #### Ongoing Practice:
 * Component based architecture 
 
 #### What's next:
-* Try integrating ng-redux
 * Remove bootstrap, try hand with flexbox/css grid
 
 #### To run:
