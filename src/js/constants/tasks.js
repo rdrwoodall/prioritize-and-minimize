@@ -1,0 +1,7 @@
+const TASKS = {
+  ADD_TASK: 'ADD_TASK',
+  REMOVE_TASK: 'REMOVE_TASK',
+  REMOVE_ALL_TASKS: 'REMOVE_ALL_TASKS',
+};
+
+export default TASKS;

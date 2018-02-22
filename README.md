@@ -5,6 +5,7 @@
 #### Learnings:
 * ES6 with AngularJS
 * Webpack
+* Integrating ng-redux for inter-component communication
 
 #### Ongoing Practice:
 * Component based architecture 
