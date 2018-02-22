@@ -4,5 +4,9 @@
       "browser": true
     },
     "extends": "airbnb",
-    "rules": {}
+    "rules": {
+      "class-methods-use-this": ["error", {
+        "exceptMethods": ["$onInit", "mapStateToThis"]
+      }]
+    }
   }
