@@ -1,14 +1,12 @@
-import angular from 'angular';
 import uniqid from 'uniqid';
 
+import TaskActions from '../../../actions/tasks.actions';
+
 const TaskFormComponent = {
-  bindings: {
-    onTaskAdd: '&',
-  },
   template: `
     <p>P.A.M. Overview</p>
 
-    <form ng-submit="$ctrl.addTask()" novalidate>
+    <form ng-submit="$ctrl.add()" novalidate>
       <input type="text" name="name" ng-model="$ctrl.task.name" placeholder="name"/>
       <input type="number" name="duration" min="1" ng-model="$ctrl.task.duration" placeholder="in mins..."/>
       <input type="submit" value="Add"/>
@@ -16,9 +14,14 @@ const TaskFormComponent = {
 
   `,
   controller: class {
-    constructor() {
+    constructor($ngRedux) {
       'ngInject';
+
+      // this component just triggers actions and does not contain any state
+      // so passing null for mapStateToTarget argument
+      this.unsubscribe = $ngRedux.connect(null, TaskActions)(this);
     }
+
     $onInit() {
       this.task = {
         id: null,
@@ -26,9 +29,14 @@ const TaskFormComponent = {
         duration: null,
       };
     }
-    addTask() {
+
+    $onDestroy() {
+      this.unsubscribe();
+    }
+
+    add() {
       this.task.id = uniqid();
-      this.onTaskAdd({ task: angular.copy(this.task) });
+      this.addTask(this.task);
 
       this.task = {
         id: null,

@@ -1,41 +1,40 @@
+import TaskActions from '../../actions/tasks.actions';
+
 const EntryComponent = {
   template: `
-    <task-form
-      on-task-add="$ctrl.processTaskAdd(task)">
-    </task-form>
-    <task-list
-      task-list="$ctrl.taskList"
-      on-task-delete="$ctrl.processTaskDelete(taskId)">
-    </task-list>
+    <task-form></task-form>
+    <task-list></task-list>
     <button ng-click="$ctrl.goToRun()">Run</button>
-    <button ng-click="$ctrl.clearTasks()">Clear Tasks</button>
+    <button ng-click="$ctrl.removeAllTasks()">Clear Tasks</button>
   `,
   controller: class {
-    constructor($state, EntryService) {
+    constructor($state, $ngRedux) {
       'ngInject';
 
       this.$state = $state;
-      this.EntryService = EntryService;
+      this.unsubscribe = $ngRedux.connect(null, TaskActions)(this);
     }
+
     $onInit() {
-      this.taskList = this.EntryService.getTasks();
+      /* nothing to do here yet */
     }
-    processTaskAdd(task) {
-      this.taskList = this.EntryService.addTask(task);
+
+    $onDestroy() {
+      this.unsubscribe();
     }
-    processTaskDelete(taskId) {
-      this.taskList = this.EntryService.deleteTaskById(taskId);
+
+    mapStateToThis(state) {
+      return {
+        tasks: state.tasks,
+      };
     }
+
     goToRun() {
       if (this.taskList.length === 0) {
-        // TODO: flash warnings
         return;
       }
 
       this.$state.go('run');
-    }
-    clearTasks() {
-      this.taskList = this.EntryService.deleteTasks();
     }
   },
 };
