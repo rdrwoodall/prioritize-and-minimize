@@ -19,6 +19,8 @@ export default function (state = initialState, action) {
         ...state.slice(0, action.payload),
         ...state.slice(action.payload + 1),
       ];
+    case TASKS.REMOVE_ALL_TASKS:
+      return [];
     default:
       return state;
   }

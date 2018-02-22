@@ -14,4 +14,11 @@ function removeTask(index) {
   };
 }
 
-export default { addTask, removeTask };
+function removeAllTasks() {
+  return {
+    type: TASKS.REMOVE_ALL_TASKS,
+    payload: null,
+  };
+}
+
+export default { addTask, removeTask, removeAllTasks };
