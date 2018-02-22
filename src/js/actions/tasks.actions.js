@@ -7,10 +7,10 @@ function addTask(task) {
   };
 }
 
-function removeTask(index) {
+function removeTask(taskId) {
   return {
     type: TASKS.REMOVE_TASKS,
-    payload: index,
+    payload: taskId,
   };
 }
 
