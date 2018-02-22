@@ -9,7 +9,7 @@ function addTask(task) {
 
 function removeTask(taskId) {
   return {
-    type: TASKS.REMOVE_TASKS,
+    type: TASKS.REMOVE_TASK,
     payload: taskId,
   };
 }
