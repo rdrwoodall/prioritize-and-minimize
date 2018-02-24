@@ -12,7 +12,7 @@ const EntryComponent = {
       'ngInject';
 
       this.$state = $state;
-      this.unsubscribe = $ngRedux.connect(null, TaskActions)(this);
+      this.unsubscribe = $ngRedux.connect(this.mapStateToThis, TaskActions)(this);
     }
 
     $onInit() {
@@ -30,7 +30,9 @@ const EntryComponent = {
     }
 
     goToRun() {
-      if (this.taskList.length === 0) {
+      if (this.tasks.length === 0) {
+        // TODO: notify user
+        console.info('no tasks to run...');
         return;
       }
 

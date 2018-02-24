@@ -4,9 +4,9 @@ import TASKS from '../constants/tasks';
 
 const initialState = [
   {
+    id: uniqid(),
     name: 'My first task',
     duration: 1,
-    id: uniqid(),
   },
 ];
 
