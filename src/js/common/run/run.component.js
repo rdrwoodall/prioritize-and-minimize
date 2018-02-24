@@ -1,4 +1,8 @@
-import angular from 'angular';
+import TIMER from '../../constants/timer';
+import TimerActions from '../../actions/timer.actions';
+
+const startText = 'Start';
+const stopText = 'Stop';
 
 const RunComponent = {
   template: `
@@ -7,38 +11,44 @@ const RunComponent = {
       duration="$ctrl.task.duration" 
       on-complete="$ctrl.onTimerComplete()">
     </timer>
-    <button ng-click="$ctrl.toggle()">{{ $ctrl.action }}</button>
+    <button ng-click="$ctrl.toggleTimer($ctrl.timerStatus);">
+      <!-- text value not being updated for some reason even though timerStatus state is -->
+      {{ ($ctrl.timerStatus === ${TIMER.STOPPED}) ? '${startText}' : '${stopText}' }}
+    </button>
     <button ng-click="$ctrl.goToNext()">Skip</button>
     <button ng-click="$ctrl.goHome()">Home</button>
     `,
   controller: class {
-    constructor($scope, $state, EntryService) {
+    constructor($scope, $state, $ngRedux) {
       'ngInject';
 
-      this.$scope = $scope;
       this.$state = $state;
-      this.EntryService = EntryService;
+      this.unsubscribe = $ngRedux.connect(this.mapStateToThis, TimerActions)(this);
     }
+
     $onInit() {
-      const task = this.EntryService.getNextTask();
-
-      if (angular.isUndefined(task)) {
-        this.$state.go('complete');
-      }
-
-      this.task = task;
-      this.action = 'Stop';
+      /* nothing to do here yet */
     }
-    toggle() {
-      this.action = (this.action === 'Stop') ? 'Start' : 'Stop';
-      this.$scope.$broadcast('toggle');
+
+    $onDestroy() {
+      this.unsubscribe();
     }
+
+    mapStateToThis(state) {
+      console.info('state', state, this);
+      return {
+        timerStatus: state.timerStatus,
+      };
+    }
+
     goToNext() {
       this.$state.go(this.$state.current, {}, { reload: true });
     }
+
     goHome() {
       this.$state.go('entry');
     }
+
     onTimerComplete() {
       this.goToNext();
     }
