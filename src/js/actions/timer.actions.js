@@ -1,17 +1,21 @@
 import TIMER from '../constants/timer';
 
-function toggleTimer(timerState) {
+function toggleTimer(timerStatus) {
+  const type = (timerStatus === TIMER.STATE.RUNNING)
+    ? TIMER.ACTIONS.STOP
+    : TIMER.ACTIONS.START;
+
   return {
-    type: (timerState === TIMER.RUNNING) ? TIMER.STOP : TIMER.START,
+    type,
     payload: null,
   };
 }
 
-function completeTimer() {
+function endTimer() {
   return {
-    type: TIMER.COMPLETE,
+    type: TIMER.ACTIONS.END,
     payload: null,
   };
 }
 
-export default { toggleTimer, completeTimer };
+export default { toggleTimer, endTimer };

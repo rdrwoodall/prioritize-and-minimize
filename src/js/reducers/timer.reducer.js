@@ -1,15 +1,15 @@
 import TIMER from '../constants/timer';
 
-const initialState = TIMER.RUNNING;
+const initialState = TIMER.STATE.STOPPED;
 
 export default function (state = initialState, action) {
   switch (action.type) {
-    case TIMER.START:
-      return TIMER.RUNNING;
-    case TIMER.STOP:
-      return TIMER.STOPPED;
-    case TIMER.COMPLETE:
-      return TIMER.COMPLETE;
+    case TIMER.ACTIONS.START:
+      return TIMER.STATE.RUNNING;
+    case TIMER.ACTIONS.STOP:
+      return TIMER.STATE.STOPPED;
+    case TIMER.ACTIONS.END:
+      return TIMER.STATE.COMPLETE;
     default:
       return state;
   }

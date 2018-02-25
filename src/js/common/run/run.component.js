@@ -12,8 +12,7 @@ const RunComponent = {
       on-complete="$ctrl.onTimerComplete()">
     </timer>
     <button ng-click="$ctrl.toggleTimer($ctrl.timerStatus);">
-      <!-- text value not being updated for some reason even though timerStatus state is -->
-      {{ ($ctrl.timerStatus === ${TIMER.STOPPED}) ? '${startText}' : '${stopText}' }}
+      {{ ($ctrl.timerStatus === '${TIMER.STATE.STOPPED}') ? '${startText}' : '${stopText}' }}
     </button>
     <button ng-click="$ctrl.goToNext()">Skip</button>
     <button ng-click="$ctrl.goHome()">Home</button>
@@ -27,7 +26,8 @@ const RunComponent = {
     }
 
     $onInit() {
-      /* nothing to do here yet */
+      // dispatch action to start timer
+      this.toggleTimer(this.timerStatus);
     }
 
     $onDestroy() {
@@ -35,7 +35,6 @@ const RunComponent = {
     }
 
     mapStateToThis(state) {
-      console.info('state', state, this);
       return {
         timerStatus: state.timerStatus,
       };
