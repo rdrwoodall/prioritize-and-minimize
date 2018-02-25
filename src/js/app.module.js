@@ -24,8 +24,9 @@ const AppModule = angular.module('pam', [
     $urlRouterProvider.otherwise('/entry');
     $locationProvider.html5Mode(true);
 
-    // create the root store using ng-redux
-    $ngReduxProvider.createStoreWith(RootReducer);
+    /* eslint-disable no-underscore-dangle */
+    $ngReduxProvider.createStoreWith(RootReducer, null, [window.__REDUX_DEVTOOLS_EXTENSION__()]);
+    /* eslint-enable */
   })
   .name;
 
